@@ -2,7 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+@font-face {
+  font-family: 'SUIT';
+  src: url('/fonts/SUIT-Variable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/PretendardVariable.ttf') format('truetype');
+}
+
+@layer base {
+  html,body { font-family: 'SUIT'; letter-spacing: -.5px;}
+  button, input { outline: none; }
+} 
+@layer utilities {
+  .text-default { color: #1a1a1a;}
+  .text-black { color: #1a1a1a;}
+  .bg-default {background-color:#1a1a1a;}
+  .shadow-primary {box-shadow: 0 1.3px 13px 3.25px rgba(0,0,0,.06);}
+  .bg-gray-prim {background-color: #3b3b3b;}
+  .bg-gray-200 {background-color: #fafafa;}
+  .bg-gray-300 {background-color: #f3f3f3;}
+  .bg-gray-400 {background-color: #bababa;}
+  .bg-gray-500 {background-color: #a8a8a8;}
+  .bg-gray-600 {background-color: #858585;}
+  .bg-gray-700 {background-color: #666666;}
+  .bg-gray-800 {background-color: #434343;}
+} 
+
+/* * {
+  font-family: 'SUIT' !important;
+} */
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -30,4 +63,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
