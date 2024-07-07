@@ -12,7 +12,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         <html className="scroll-pt-[3.5rem]">
             <body>
                 <Header />
-                <main className="pt-[90px] flex justify-center">
+                <main className="pt-[70px]">
                     {children}
                 </main>
                 <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>

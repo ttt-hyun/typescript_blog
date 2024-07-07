@@ -7,10 +7,10 @@ const Header = () => {
     return (
         <header className='flex justify-center sticky  px-5 box-border'>
             <div className='relative header__inner flex justify-center w-[1200px]'>
-                <div className="header__title flex justify-center items-center absolute top-5 z-100 bg-white dark:bg-gray-prim w-[480px] h-[50px] shadow-primary rounded-lg">
+                <div className="header__title flex justify-center items-center absolute top-5 z-100 bg-white dark:bg-default w-[480px] h-[50px] shadow-primary rounded-lg">
                     <h1 className='text-base font-extrabold text-default dark:text-white'>header</h1>
                 </div>
-                <div className='menu__button absolute w-[50px] h-[50px] shadow-primary bg-white hover:bg-gray-200 dark:bg-gray-prim dark:hover:bg-gray-800 rounded-lg top-5 right-0'>
+                <div className='menu__button absolute w-[50px] h-[50px] shadow-primary bg-white hover:bg-gray-200 dark:bg-default dark:hover:bg-gray-800 rounded-lg top-5 right-0'>
                     {modalMenuOpen && (
                     <ModalMenu 
                         isOpen={modalMenuOpen}
