@@ -6,3 +6,9 @@ export interface CustomButtonProps {
     containerStyles?: string;
     handleClick: MouseEventHandler<HTMLButtonElement>;
 }
+
+export interface UtilSearchProps {
+    keyword?: string;
+    isAvailable: boolean;
+    handleClick: MouseEventHandler<HTMLButtonElement>;
+}

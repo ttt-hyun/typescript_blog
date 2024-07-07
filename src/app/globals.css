@@ -14,7 +14,8 @@
 
 @layer base {
   html,body { font-family: 'SUIT'; letter-spacing: -.5px;}
-  button, input { outline: none; }
+  button, input { outline: none;}
+  button:hover { cursor:pointer;}
 } 
 @layer utilities {
   .text-default { color: #1a1a1a;}
@@ -22,29 +23,9 @@
   .bg-default {background-color:#1a1a1a;}
   .shadow-primary {box-shadow: 0 1.3px 13px 3.25px rgba(0,0,0,.06);}
   .bg-gray-prim {background-color: #3b3b3b;}
-  .bg-gray-200 {background-color: #fafafa;}
-  .bg-gray-300 {background-color: #f3f3f3;}
-  .bg-gray-400 {background-color: #bababa;}
-  .bg-gray-500 {background-color: #a8a8a8;}
-  .bg-gray-600 {background-color: #858585;}
-  .bg-gray-700 {background-color: #666666;}
-  .bg-gray-800 {background-color: #434343;}
   .fill-gray-prim {fill: #3b3b3b;}
-  .fill-gray-200 {fill: #fafafa;}
-  .fill-gray-300 {fill: #f3f3f3;}
-  .fill-gray-400 {fill: #bababa;}
-  .fill-gray-500 {fill: #a8a8a8;}
-  .fill-gray-600 {fill: #858585;}
-  .fill-gray-700 {fill: #666666;}
-  .fill-gray-800 {fill: #434343;}
   .text-gray-prim {color: #3b3b3b;}
-  .text-gray-200 {color: #fafafa;}
-  .text-gray-300 {color: #f3f3f3;}
-  .text-gray-400 {color: #bababa;}
-  .text-gray-500 {color: #a8a8a8;}
-  .text-gray-600 {color: #858585;}
-  .text-gray-700 {color: #666666;}
-  .text-gray-800 {color: #434343;}
+  /* a {fill:#cdcdcd} */
 } 
 
 /* * {
