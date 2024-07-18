@@ -1,0 +1,162 @@
+---
+title : "[sql] 기본 문법 정리"
+description : SELECT문, FROM, WHERE, ORDER BY, GROUP BY, LIMIT 등 sql의 기본 문법 정리
+date : 2024-01-04 19:30
+category: mysql
+published: true
+---
+
+## ✅ SELECT
+
+SELECT문은 조회할 데이터들을 지정하는 명령어다.
+```sql
+
+-- A테이블에서 모든 컬럼을 조회
+SELECT * FROM A_TABLE
+
+-- A테이블에서 name, age 컬럼을 조회
+SELECT name, age FROM A_TABLE
+
+```
+
+<br />
+<br />
+<br />
+
+## ✅ FROM
+
+FROM문은 조회할 테이블을 지정하는 명령어다.
+
+```sql
+-- A테이블 내용 조회
+SELECT * FROM A_TABLE
+
+-- 스키마가 지정되어있지 않을경우 테이블 앞에 
+-- 어떤 데이터베이스의 테이블을 가져올건지 지정이 필요하다.
+-- (USE 사용시 필요없음)
+
+SELECT * FROM A_DATABASE.A_TABLE
+
+USE A_DATABASE;
+SELECT * FROM A_TABLE
+```
+
+<br />
+<br />
+<br />
+
+## ✅ WHERE
+
+WHERE문은 조회할 내용에 조건을 걸어주는 명령어다.
+
+```sql
+-- =  : 같음(다른언어에서 흔히 쓰는 ==를 안씀)
+
+-- age가 10이상인 테이블 데이터 조회
+SELECT * FROM A_TABLE
+    WHERE age > 10
+
+
+-- between 범위 사이의 데이터 조회
+-- age가 10~20인 테이블 데이터 조회
+SELECT * FROM A_TABLE
+    WHERE age between 10 AND 20
+```
+
+<br />
+<br />
+
+where문은 다양한 방식으로 데이터에 접근할 수 있게 문법이 많다.
+
+
+<br />
+
+### NOT - 부정 연산자
+
+```sql
+--같지 않음을 조건화하는 연산자의 종류
+SELECT * FROM A_TABLE
+    WHERE   age != 10
+    AND     age ^= 11
+    AND     age <> 12
+    AND NOT age =  13
+```
+
+<br />
+
+### BETWEEN - 범위 표현식
+
+```sql
+-- A_TABLE 에서 age컬럼이 10이상 20이하인 데이터 조회
+SELECT * FROM A_TABLE 
+	WHERE age between 10 and 20;
+```
+
+<br />
+
+### IN - 여러 값 매칭 연산자
+
+```sql
+-- A_TABLE 에서 name컬럼이 영희, 철수, 태현 인 데이터 조회
+SELECT * FROM A_TABLE 
+	WHERE name IN('영희', '철수', '태현')
+
+-- AND로 똑같이 만들면...
+SELECT * FROM A_TABLE 
+	WHERE name = '영희' AND name = '철수' AND name = '태현'
+```
+
+<br />
+<br />
+<br />
+
+## ✅ ORDER BY
+
+ORDER BY문은 데이터 정렬 순서를 관여한다.
+
+```sql
+-- age값을 기준으로 데이터를 정렬 (기본 오름차순 [가, 나, 다 ....])
+SELECT * FROM A_TABLE
+    ORDER BY age
+
+-- 오름차순 : ASC
+-- 내림차순 : DESC
+
+-- 콤마(,)사용해서 여러 조건으로 정렬가능
+SELECT * FROM A_TABLE
+    ORDER BY age DESC, height ASC
+```
+
+<br />
+<br />
+<br />
+
+## ✅ GROUP BY 
+
+GROUP BY문은 공통된 컬럼 값을 그룹화한다.(보통 집계함수와 깉이 쓰임)
+
+```sql
+-- job이 같은 컬럼들의 평균 age를 구한다.
+SELECT job, AVG(age) AS '직업별 평균나이' FROM A_TABLE
+    GROUP BY job
+```
+
+<br />
+<br />
+
+## ✅ LIMIT 
+
+LIMIT문은 데이터를 조회하는 개수를 제한한다.
+
+```sql
+-- 데이터 3개만 조회
+SELECT job FROM A_TABLE
+    LIMIT 3
+
+-- 3번째 데이터 부터 10개만 조회(pagination기능에 사용)
+SELECT job FROM A_TABLE
+    LIMIT 3, 10   
+
+    -- 위와 동일
+    LIMIT 3 OFFSET 10 
+```

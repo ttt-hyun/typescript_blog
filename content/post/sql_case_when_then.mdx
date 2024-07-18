@@ -1,0 +1,46 @@
+---
+
+title: "[sql] CASE WHEN THEN 구문"
+description: MySQL에서는 CASE 문을 사용하여 특정 조건에 따라 다른 결과를 반환할 수 있다. 이는 데이터를 쿼리하거나 조작할 때 유용한 기능 중 하나다. CASE WHEN THEN 구문은 일반적인 개발언어와 비교했을 때 SWITCH구문과 비슷하다.
+date: 2024-01-24 12:40
+category: mysql
+published: true
+---
+
+
+MySQL에서는 CASE 문을 사용하여 특정 조건에 따라 다른 결과를 반환할 수 있다.  
+이는 데이터를 쿼리하거나 조작할 때 유용한 기능 중 하나다.
+`CASE WHEN THEN` 구문은 일반적인 개발언어와 비교했을 때 `SWITCH`구문과 비슷하다.
+
+<br />
+
+## ✅ 예제
+
+예를 들어, 어떤 회원의 등급에 따라 할인율을 다르게 적용해야 한다고 가정해 보자.
+이때 CASE 문을 사용하여 할인율을 결정할 수 있다.
+
+```sql
+
+SELECT
+    member_id,
+    CASE
+        WHEN membership_level = 'Gold' THEN 0.2
+        WHEN membership_level = 'Silver' THEN 0.15
+        WHEN membership_level = 'Bronze' THEN 0.1
+        ELSE 0
+    END AS discount_rate
+FROM
+    members;
+
+```
+
+위의 쿼리는 회원의 등급에 따라 할인율을 계산하여 반환한다. Gold 등급인 경우 20%, Silver 등급인 경우 15%, Bronze 등급인 경우 10%의 할인율이 적용되며, 그 외의 경우에는 할인율이 0%로 반환된다.
+
+<br />
+
+## ✅ CASE 문 활용
+
+CASE 문은 데이터베이스에서 다양한 상황에 유연하게 대응할 수 있도록 도와준다. 예를 들어, 조건에 따라 특정 카테고리에 속한 상품을 분류하거나, 특정 범위에 속한 데이터를 그룹화하는 등의 작업에 활용할 수 있다.
+또한, CASE 문은 다른 함수나 연산과 조합하여 복잡한 로직을 작성할 수 있기 때문에 데이터 조작 및 가공에 매우 유용하다.
+
+이상으로 MySQL의 CASE 문에 대한 간단한 소개를 마친다.

@@ -1,18 +1,5 @@
 import { Post } from "#site/content";
 
-// export function formatDate(input: string | number): string {
-//     const date = new Date(input);
-//     return date.toLocaleDateString('ko-KR', {
-//         timeZone: 'Asia/Seoul', 
-//         year: 'numeric', 
-//         month: '2-digit', 
-//         day: '2-digit'
-//         // hour: '2-digit', 
-//         // minute: '2-digit', 
-//         // second: '2-digit' 
-//     });
-// }
-
 // yyyy.mm.dd 날짜 반환
 export function formatDate(dateTimeString: string): string {
     // 주어진 문자열을 Date 객체로 변환
@@ -34,3 +21,10 @@ export function sortPosts(posts: Array<Post>){
         return 0;
     });
 }
+
+interface PostPageProps {
+    params: {
+        slug: string[];
+    };
+}
+

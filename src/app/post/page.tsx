@@ -13,10 +13,10 @@ const page = async () => {
                     {displayPosts?.length > 0 ? (
                         <ul className="grid grid-cols-3 gap-5">
                             {displayPosts.map(post => {
-                                const { slug, date, title, description, category } = post;
+                                const { slug, date, title, description, category, related } = post;
                                 return (
                                     <li key={slug}>
-                                        <PostItem slug={slug} date={date} title={title} description={description} category={category}/>
+                                        <PostItem slug={slug} date={date} title={title} description={description} category={category} related={related}/>
                                     </li>
                                 )
                             })}

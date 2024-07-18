@@ -9,8 +9,9 @@ interface PostItemProps {
     description?: string;
     date: string;
     category?: string;
+    related?: Array<string>;
 }
-const PostItem = ({ slug, title, description, date, category }: PostItemProps) => {
+const PostItem = ({ slug, title, description, date, category, related }: PostItemProps) => {
     return (
         <Link href={slug} className="flex flex-col rounded-md overflow-hidden shadow-primary h-full">
             <div className="image__area relative h-[180px]">

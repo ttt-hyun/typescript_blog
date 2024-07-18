@@ -5,7 +5,7 @@ import { CustomButton, ModalMenu } from '@/components';
 const Header = () => {
     const [modalMenuOpen, setModalMenuOpen] = useState<boolean>(false);
     return (
-        <header className='flex justify-center sticky  px-5 box-border'>
+        <header className='main__header flex justify-center sticky  px-5 box-border'>
             <div className='relative header__inner flex justify-center w-[1200px]'>
                 <div className="header__title flex justify-center items-center absolute top-5 z-100 bg-white dark:bg-default w-[480px] h-[50px] shadow-primary rounded-lg">
                     <h1 className='text-base font-extrabold text-default dark:text-white'>header</h1>

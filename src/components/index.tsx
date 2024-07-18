@@ -8,9 +8,11 @@ import ModalMenu from './ModalMenu';
 import PostItem from './PostItem';
 import MDXContent from './PostMDXContent';
 import UtilSearch from './UtilSearch'
+import AsideHeading from './AsideHeading';
 
 export {
     AsideUtil,
+    AsideHeading,
     CustomButton,
     Header,
     MDXContent,

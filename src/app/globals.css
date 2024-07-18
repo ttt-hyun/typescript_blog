@@ -28,6 +28,42 @@
   /* a {fill:#cdcdcd} */
 } 
 
+ol.mdx__ol {
+    counter-reset: custom-counter;
+}
+ol.mdx__ol li {
+    counter-increment: custom-counter; /* 각 li 요소마다 카운터 증가 */
+    position: relative;
+    padding-left: 20px;
+}
+
+ol.mdx__ol li::before {
+    content: counter(custom-counter) ". "; /* 카운터 값을 표시 */
+    font-weight:900;
+    position: absolute;
+    left: 0; /* 위치 조정 */
+    width: 0; /* 너비 설정 */
+    text-align: right; /* 오른쪽 정렬 */
+}
+
+ul.mdx__ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+figure[data-rehype-pretty-code-figure]{
+    max-width:100%;
+    margin: 20px 0 !important;
+}
+figure[data-rehype-pretty-code-figure] pre{
+    width:100%;
+}
+figure[data-rehype-pretty-code-figure] figcaption{
+    font-size: 18px !important;
+}
+figure[data-rehype-pretty-code-figure] figcaption ~ button{
+    color:#1a1a1a;
+}
+
 /* * {
   font-family: 'SUIT' !important;
 } */
