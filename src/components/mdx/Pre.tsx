@@ -28,7 +28,7 @@ export const Pre = ({ children, raw, ...props } : PreTagProps) => {
     <button className="absolute top-3 right-3 text-sm font-bold text-white" onClick={() => copy(raw)}>
       {isCopied ? 'Copied!' : 'Copy'}
     </button>
-    <pre {...props} >
+    <pre {...props} className="overflow-x-auto">
       {/* <div className={"code-header"}>{lang}</div> */}
       {children}
     </pre>

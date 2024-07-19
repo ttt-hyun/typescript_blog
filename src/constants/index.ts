@@ -9,6 +9,7 @@ const phpChildren: PostAsideMenuChildrenProps[]            = [];
 const typescriptChildren: PostAsideMenuChildrenProps[]     = [];
 const nextjsChildren: PostAsideMenuChildrenProps[]         = [];
 const codeigniterChildren: PostAsideMenuChildrenProps[]    = [];
+const moduleChildren: PostAsideMenuChildrenProps[]    = [];
 
 postsForSearch.forEach(res => {
     const prc = {
@@ -33,7 +34,9 @@ postsForSearch.forEach(res => {
     }
     if(res.category?.toLowerCase() === 'codeigniter'){
         codeigniterChildren.push(prc); return;
-        
+    }
+    if(res.category?.toLowerCase() === 'module'){
+        moduleChildren.push(prc); return;
     }
 })
 
@@ -56,6 +59,11 @@ export const postAsideMenu: PostAsideMenuProps[] = [
                 title: 'TypeScript',
                 category: ['typescript'],
                 children: typescriptChildren
+            },
+            {
+                title: 'Module',
+                category: ['module'],
+                children: moduleChildren
             }
         ]
     },

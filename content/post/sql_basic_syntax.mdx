@@ -2,11 +2,11 @@
 title : "[sql] 기본 문법 정리"
 description : SELECT문, FROM, WHERE, ORDER BY, GROUP BY, LIMIT 등 sql의 기본 문법 정리
 date : 2024-01-04 19:30
-category: mysql
+category: sql
 published: true
 ---
 
-## ✅ SELECT
+# 📁SELECT
 
 SELECT문은 조회할 데이터들을 지정하는 명령어다.
 ```sql
@@ -23,7 +23,7 @@ SELECT name, age FROM A_TABLE
 <br />
 <br />
 
-## ✅ FROM
+# 📁FROM
 
 FROM문은 조회할 테이블을 지정하는 명령어다.
 
@@ -45,7 +45,7 @@ SELECT * FROM A_TABLE
 <br />
 <br />
 
-## ✅ WHERE
+# 📁 WHERE
 
 WHERE문은 조회할 내용에 조건을 걸어주는 명령어다.
 
@@ -71,7 +71,7 @@ where문은 다양한 방식으로 데이터에 접근할 수 있게 문법이 �
 
 <br />
 
-### NOT - 부정 연산자
+## 🧩 NOT - 부정 연산자
 
 ```sql
 --같지 않음을 조건화하는 연산자의 종류
@@ -84,7 +84,7 @@ SELECT * FROM A_TABLE
 
 <br />
 
-### BETWEEN - 범위 표현식
+## 🧩 BETWEEN - 범위 표현식
 
 ```sql
 -- A_TABLE 에서 age컬럼이 10이상 20이하인 데이터 조회
@@ -94,7 +94,7 @@ SELECT * FROM A_TABLE
 
 <br />
 
-### IN - 여러 값 매칭 연산자
+## 🧩 IN - 여러 값 매칭 연산자
 
 ```sql
 -- A_TABLE 에서 name컬럼이 영희, 철수, 태현 인 데이터 조회
@@ -110,7 +110,7 @@ SELECT * FROM A_TABLE
 <br />
 <br />
 
-## ✅ ORDER BY
+# 📁ORDER BY
 
 ORDER BY문은 데이터 정렬 순서를 관여한다.
 
@@ -131,7 +131,7 @@ SELECT * FROM A_TABLE
 <br />
 <br />
 
-## ✅ GROUP BY 
+# 📁GROUP BY 
 
 GROUP BY문은 공통된 컬럼 값을 그룹화한다.(보통 집계함수와 깉이 쓰임)
 
@@ -144,7 +144,7 @@ SELECT job, AVG(age) AS '직업별 평균나이' FROM A_TABLE
 <br />
 <br />
 
-## ✅ LIMIT 
+# 📁LIMIT 
 
 LIMIT문은 데이터를 조회하는 개수를 제한한다.
 

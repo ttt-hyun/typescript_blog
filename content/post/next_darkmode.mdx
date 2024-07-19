@@ -3,12 +3,13 @@ title : "[NextJs] 다크모드"
 description : ThemeProvider를 활용한 NextJs 다크모드 구현하기
 date : 2024-01-04 19:30
 category: nextjs
+related: ['NextJs', 'DarkMode', 'ThemeProvider']
 published: true
 ---
 
-# 📁다크모드 설정하기
+# 📁 다크모드 설정하기
 
-## 📄 next-themes 설치
+## 🧩 next-themes 설치
 
 `next-themes` 설치하기
 ```shell
@@ -16,7 +17,7 @@ $ npm install next-themes
 ```
 <br />
 
-## 📄 ThemeProvider를 사용한 컴포넌트 만들기
+## 🧩 ThemeProvider를 사용한 컴포넌트 만들기
 `next-themes`에서 설치한 `ThemeProvider`모듈을 사용하여 컴포넌트 만들기
 ```javascript
 // components/ThemeProvider.tsx
@@ -31,7 +32,7 @@ export default function ThemeProvider({ children, ...props }: ThemeProviderProps
 }
 ```
 
-## 📄 테마 변경 컴포넌트 만들기
+## 🧩 테마 변경 컴포넌트 만들기
 Theme를 변경시켜줄 eventHandler를 포함한 컴포넌트 만들기(버튼)
 
 ```javascript
@@ -65,7 +66,7 @@ const ThemeButton = () => {
 export default ThemeButton;
 ```
 
-## 📄 버튼 배치하기
+## 🧩 버튼 배치하기
 테마를 변경시키는 EventHandler를 가진 버튼을 배치
 ```javascript
 import { Header, ThemeProvider, ThemeButton } from '@/components';

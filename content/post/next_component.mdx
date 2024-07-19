@@ -3,12 +3,13 @@ title : "[NextJs] 기본 컴포넌트"
 description : 함수형 컴포넌트와 클래스형 컴포넌트 등 각 컴포넌트의 특징 알아보기
 date : 2024-06-30 21:30
 category: nextjs
+related: ['Nextjs', 'component', 'arrowFunction']
 published: true
 ---
 
-# 📁함수형 컴포넌트 (Functional Components)
+# 📁 함수형 컴포넌트 (Functional Components)
 
-## 📄 기본 형태
+## 🧩 기본 형태
 ```javascript
 const page = () => {
   return (
@@ -18,7 +19,7 @@ const page = () => {
   );
 }
 ```
-## 📄 특징
+## 🧩 특징
 1. 클래스형 컴포넌트보다 메모리가 덜 사용된다.
 2. 단순한 구조로 사용이 편하다.
 3. React와 Next 공식 문서에서 권장하고 있는 컴포넌트 방식이다.
@@ -27,9 +28,9 @@ const page = () => {
 
 <br /> 
 
-# 📁클래스형 컴포넌트 (Functional Components)
+# 📁 클래스형 컴포넌트 (Functional Components)
 
-## 📄 기본 형태
+## 🧩 기본 형태
 ```javascript
 import React, { Component } from 'react';
 class Page extends Component {
@@ -42,7 +43,7 @@ class Page extends Component {
   }
 }
 ```
-## 📄 특징
+## 🧩 특징
 1. 함수형 컴포넌트보다 메모리가 더 사용된다.
 2. componentDidMount와 componentWillUnmount 등과 같은 생명주기 메서드들이 존재한다.
 3. 컴포넌트를 사용하기 위해 react의 Component를 반드시 import 해줘야 한다.
