@@ -1,10 +1,11 @@
 import React from 'react';
 import { posts, postsForSearch } from '#site/content';
 import { notFound } from 'next/navigation';
-import { AsideUtil, AsideHeading, MDXContent } from '@/components';
+import { AsideUtil, AsideHeading, CommentWrite, MDXContent } from '@/components';
 import Image from 'next/image'
 import Link from 'next/link'
 import "@/styles/mdx.css"
+
 
 interface PostPageProps {
     params: {
@@ -27,6 +28,8 @@ interface PostPageProps {
 }
 
 
+
+
 const page = async ({params}: PostPageProps) => {
 
     const post =  getPostFromParams(params);
@@ -34,7 +37,24 @@ const page = async ({params}: PostPageProps) => {
         notFound();
     }
 
+    // 이전/이후 게시물 데이터
     const { prevPost, nextPost } =  getPrevAndNextPost(params);
+
+    // 댓글 데이터
+    const comment = await fetch("http://localhost:3000/api/comment", {
+        method : "POST",
+        headers: {
+            Accept: "application/json"
+        },
+        body: JSON.stringify({
+            postId : params?.slug?.join("/")
+        })
+        
+    }).then(res => res.json());
+
+    
+
+
 
   return (
     <>
@@ -46,6 +66,7 @@ const page = async ({params}: PostPageProps) => {
                     </div>
                 </aside>
                 <div className="mdx__contents w-full overflow-hidden flex-1 prose dark:prose-invert max-w-3xl">
+                    <p>{JSON.stringify(comment)}</p>
                     <div className="mdx__thumbnail rounded-md overflow-hidden border border-gray-400">
                         <Image src="/thumb_next_1.svg" alt="" width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }} />
                     </div>
@@ -104,20 +125,7 @@ const page = async ({params}: PostPageProps) => {
                         </ul>
                     </div>
                     <div className="mdx__comment">
-                        <div className="mdx__comment__write flex flex-col gap-2">
-                            <div className="border rounded-md overflow-hidden">
-                                <textarea className="w-full px-5 py-4 resize-none outline-none" placeholder='댓글을 입력해주세요!'></textarea>
-                                <div className="border-t flex flex-between">
-                                    <div className="input__box w-1/2 px-5">
-                                        <input type="text" placeholder="아이디" className="w-full h-10"/>
-                                    </div>
-                                    <div className="input__box w-1/2 px-5 border-l">
-                                        <input type="password" placeholder="비밀번호" className="w-full h-10"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" className="w-full border rounded-md h-10 font-extrabold">댓글등록</button>
-                        </div>
+                        <CommentWrite />
                     </div>
                 </div>
                 <aside className="shrink-0 w-[280px] relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-[30px] before:rounded-tl-md before:border-t before:border-l before:border-solid before:border-gray-300 before:dark:border-white">
