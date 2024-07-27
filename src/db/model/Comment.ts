@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
+
 export interface IComment extends Document {
     postId: string;
     content: string;
@@ -8,6 +9,7 @@ export interface IComment extends Document {
         password: string;
     }
 }
+
 export interface ICommentProp {
     postId: string;
     content: string;

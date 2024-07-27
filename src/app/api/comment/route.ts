@@ -9,9 +9,10 @@ type ResponseData = {
 };
 
 export async function POST( req: NextRequest ) {
+
     try {
+
         await dbConnect();
-        
 
         try {
 
@@ -29,17 +30,46 @@ export async function POST( req: NextRequest ) {
         }
         
     } catch (err: any) {
+
         return NextResponse.json({ error: err.message });
+
     }
 }
 
-
 export async function GET( req: NextRequest ) {
+
     try {
+
         await dbConnect();
-        const comment = await Comment.find({});
-        return NextResponse.json(comment);
+
+        const params = req.nextUrl.searchParams;
+        const allowParams = ['postId'];
+
+        let findParams: { [key: string]: string | null } = {};
+
+        allowParams.forEach((res: string) => {
+            if(params.get(res) !== null && params.get(res) !== undefined){
+                findParams[res] = params.get(res);
+            }
+        })
+
+        try {
+
+            const comment = await Comment.find(findParams);
+            
+            return NextResponse.json(comment);
+
+        } catch (err: any) {
+
+            const comment = await Comment.find({});
+
+            return NextResponse.json(comment);
+
+        }
+
     } catch (err: any) {
+
         return NextResponse.json({ error: err.message });
+
     }
 }
