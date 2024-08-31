@@ -1,5 +1,5 @@
 "use client";
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 const creatWrapperAndAppendToBody = (wrapperId: string) => {
@@ -30,12 +30,17 @@ function ReactPortal({
 
         setWrapperElement(element!);
 
+        document.body.style.overflow = 'hidden';
+        document.body.style.borderRight = '18px solid transparent';
+
         return () => {
             if (systemCreated && element?.parentNode) {
                 element.parentNode.removeChild(element);
+                document.body.style.overflow = 'unset';
+                document.body.style.borderRight = '0px solid transparent';
             }
         };
-    }, [wrapperId])
+    }, [wrapperId]);
 
     if (!wrapperElement) return null;
 

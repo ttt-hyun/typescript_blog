@@ -10,6 +10,7 @@ import MDXContent from './PostMDXContent';
 import UtilSearch from './UtilSearch'
 import AsideHeading from './AsideHeading';
 import CommentWrite from './CommentWrite';
+import PageLocation from './PageLocation';
 
 export {
     AsideUtil,
@@ -20,6 +21,7 @@ export {
     MDXContent,
     ModalMenu,
     ModalSearch,
+    PageLocation,
     PostItem,
     ThemeProvider,
     ThemeButton,

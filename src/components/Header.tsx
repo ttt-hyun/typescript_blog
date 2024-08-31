@@ -1,42 +1,55 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CustomButton, ModalMenu } from '@/components';
+import { ModalSearch, UtilSearch } from '@/components';
+import Link from 'next/link';
+
+
 
 const Header = () => {
     const [modalMenuOpen, setModalMenuOpen] = useState<boolean>(false);
+    const [modalSearchOpen, setModalSearchOpen] = useState<boolean>(false);
+    const [showHeader, setShowHeader] = useState<boolean>(true);
+    const [scrollingUp, setScrollingUp] = useState<boolean>(true);
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [])
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+        const currentY = window.scrollY;
+
+        if(currentY > 100) setShowHeader(false);
+        else setShowHeader(true);
+
+        if(currentY > lastScrollY) setScrollingUp(false);
+        else setScrollingUp(true);
+
+        lastScrollY = currentY;
+    }
+
     return (
-        <header className='main__header flex justify-center sticky  px-5 box-border'>
-            <div className='relative header__inner flex justify-center w-[1200px]'>
-                <div className="header__title flex justify-center items-center absolute top-5 z-100 bg-white dark:bg-default w-[480px] h-[50px] shadow-primary rounded-lg">
-                    <h1 className='text-base font-extrabold text-default dark:text-white'>header</h1>
-                </div>
-                <div className='menu__button absolute w-[50px] h-[50px] shadow-primary bg-white hover:bg-gray-200 dark:bg-default dark:hover:bg-gray-800 rounded-lg top-5 right-0'>
-                    {modalMenuOpen && (
-                    <ModalMenu 
-                        isOpen={modalMenuOpen}
-                        handleClose={() => setModalMenuOpen(!modalMenuOpen)}
-                    >
-                        <p>test children</p>
-                    </ModalMenu>
-                    )}
-                    {/* <button onClick={() => {setModalMenuOpen(true)} } className='w-full h-full px-[15px] py-[17px] flex flex-col justify-between'>
-                        <p className='bg-gray-700 w-full h-[2px] rounded-sm'></p>
-                        <p className='bg-gray-700 w-full h-[2px] rounded-sm'></p>
-                        <p className='bg-gray-700 w-full h-[2px] rounded-sm'></p>
-                    </button> */}
-                    <CustomButton
-                        content="Menu"
-                        containerStyles='w-full h-full px-[15px] py-[17px] flex flex-col justify-between'
-                        handleClick={() => {
-                            setModalMenuOpen(true);
-                        }}
-                    >
-                        <p className='bg-gray-700 dark:bg-white w-full h-[2px] rounded-sm'></p>
-                        <p className='bg-gray-700 dark:bg-white w-full h-[2px] rounded-sm'></p>
-                        <p className='bg-gray-700 dark:bg-white w-full h-[2px] rounded-sm'></p>
-                    </CustomButton>
-                </div>
-            </div>
+        <header className='fixed z-30 main__header flex justify-center px-5 box-border w-full'>
+            {modalMenuOpen && (
+            <ModalMenu 
+                isOpen={modalMenuOpen}
+                handleClose={() => setModalMenuOpen(!modalMenuOpen)}
+            />
+            )}
+            <CustomButton
+                content="Menu"
+                containerStyles={`absolute flex justify-center gap-1 items-center w-[40px] h-[24px] px-2 rounded-lg shadow-primary bg-white dark:bg-black hover:bg-gray-50 right-5 ${(showHeader || scrollingUp) ? 'top-5' : 'top-[-80px]'} transition-all`}
+                handleClick={() => {
+                    setModalMenuOpen(true);
+                }}
+            >
+                <p className="rounded-full bg-green-200 w-1 h-1"></p>
+                <p className="rounded-full bg-green-200 w-1 h-1"></p>
+                <p className="rounded-full bg-green-200 w-1 h-1"></p>
+            </CustomButton>
         </header>
     )
 }

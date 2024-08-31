@@ -4,6 +4,7 @@ export interface CustomButtonProps {
     children?: React.ReactNode;
     content?: string;
     containerStyles?: string;
+    tooltip?: string;
     handleClick: MouseEventHandler<HTMLButtonElement>;
 }
 

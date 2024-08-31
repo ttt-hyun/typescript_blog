@@ -4,42 +4,21 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 // import { NextResponse } from "next/server";
 
-type ResponseData = {
-    message: string;
-};
-
 export async function POST( req: NextRequest ) {
-
     try {
-
         await dbConnect();
+        const body = await req.json();
+        const createComment = Comment.create(body);
 
-        try {
-
-            const reqData = await req.json();
-            const comment = await Comment.find(reqData);
-
-            return NextResponse.json(comment);
-
-        } catch (err: any) {
-
-            const comment = await Comment.find({});
-
-            return NextResponse.json(comment);
-
-        }
+        return NextResponse.json(body);
         
     } catch (err: any) {
-
         return NextResponse.json({ error: err.message });
-
     }
 }
 
 export async function GET( req: NextRequest ) {
-
     try {
-
         await dbConnect();
 
         const params = req.nextUrl.searchParams;

@@ -40,10 +40,10 @@ const ModalMenu = ({ children, isOpen, handleClose }: ModalDefaultProps) => {
     }, [handleClose]);
 
     useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return (): void => {
-            document.body.style.overflow = "unset";
-        };
+        // document.body.style.overflow = "hidden";
+        // return (): void => {
+        //     document.body.style.overflow = "unset";
+        // };
     }, [isOpen]);
 
     

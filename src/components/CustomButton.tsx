@@ -2,7 +2,7 @@
 import React from 'react';
 import { CustomButtonProps } from '@/types';
 
-const CustomButton = ({ children, content, containerStyles, handleClick }: CustomButtonProps) => {
+const CustomButton = ({ children, content, tooltip, containerStyles, handleClick }: CustomButtonProps) => {
     return (
         <button
             disabled={false}
