@@ -11,6 +11,7 @@ import UtilSearch from './UtilSearch'
 import AsideHeading from './AsideHeading';
 import CommentWrite from './CommentWrite';
 import PageLocation from './PageLocation';
+import PostHat from './PostHat';
 
 export {
     AsideUtil,
@@ -22,9 +23,9 @@ export {
     ModalMenu,
     ModalSearch,
     PageLocation,
+    PostHat,
     PostItem,
     ThemeProvider,
     ThemeButton,
-    UtilSearch
-    
+    UtilSearch,
 }

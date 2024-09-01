@@ -5,8 +5,8 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { pastTime } from '@/library/util';
-import { Link } from 'next/link';
 import CustomButton from './CustomButton';
+import ModalCommentEdit from './ModalCommentEdit'
 
 const commentSchema = z.object({
     id: z.string().min(5).max(20),
@@ -22,6 +22,7 @@ type TParams = {
 
 const CommentWrite = ( { slug }: TParams ) => {
 
+    const [modalCommentEditOpen, setModalCommentEditOpen] = useState<boolean>(false);
     const [comment, setComment] = useState<[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     
@@ -133,18 +134,18 @@ const CommentWrite = ( { slug }: TParams ) => {
                                 {/* <p>{JSON.stringify(res)}</p> */}
                                 <div className="content__head px-4 flex justify-between items-center h-10">
                                     <h4 className="comment__author font-bold">{res.author.name}</h4>
-                                    <p className="text-sm">{pastTime(res.createdAt)}</p>
+                                    <p className="text-xs font-bold">{pastTime(res.createdAt)}</p>
                                 </div>
                                 <div className="content__body p-5 border-t">
                                     <p>{res.content}</p>
                                 </div>
                                 <CustomButton 
-                                    handleClick={() => {}} 
-                                    containerStyles="   relative w-full flex justify-center py-2 gap-1 bg-gray-200 border-t 
+                                    handleClick={() => { setModalCommentEditOpen(true)}} 
+                                    containerStyles="   relative w-full flex justify-center py-2 gap-1 bg-gray-50 border-t 
                                                         before:content-['수정/삭제'] use__tooltip">
-                                    <p className="rounded-full bg-white w-1 h-1"></p>
-                                    <p className="rounded-full bg-white w-1 h-1"></p>
-                                    <p className="rounded-full bg-white w-1 h-1"></p>
+                                    <p className="rounded-full bg-green-400 w-1 h-1"></p>
+                                    <p className="rounded-full bg-green-400 w-1 h-1"></p>
+                                    <p className="rounded-full bg-green-400 w-1 h-1"></p>
                                 </CustomButton>
                             </li>
                         ))
@@ -156,6 +157,13 @@ const CommentWrite = ( { slug }: TParams ) => {
                     )}
                 </ul>
             </div>
+
+            {modalCommentEditOpen && (
+            <ModalCommentEdit
+                isOpen={modalCommentEditOpen}
+                handleClose={() => setModalCommentEditOpen(!modalCommentEditOpen)}
+            />
+            )}
         </>
     )
 }

@@ -14,9 +14,6 @@ export interface UtilSearchProps {
     handleClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-
-
-
 export type PostAsideMenuChildrenProps = {
     slug: string;
     title: string;
@@ -27,4 +24,16 @@ export interface PostAsideMenuProps {
     title: string;
     category?: string[];
     children: (PostAsideMenuProps | PostAsideMenuChildrenProps)[];
+}
+
+export type TPostProps = {
+    slug: string;
+    title: string;
+    date: string;
+    published: boolean;
+    body: string;
+    description?: string | undefined;
+    category?: string | undefined;
+    related?: string[] | undefined;
+    slugAsParams?: string;
 }

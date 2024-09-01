@@ -2,7 +2,7 @@ import React from 'react';
 import { headers } from 'next/headers';
 import { posts, postsForSearch } from '#site/content';
 import { notFound } from 'next/navigation';
-import { AsideUtil, AsideHeading, CommentWrite, MDXContent, PageLocation } from '@/components';
+import { AsideUtil, AsideHeading, CustomButton, CommentWrite, MDXContent, PostHat } from '@/components';
 import Image from 'next/image'
 import Link from 'next/link'
 import "@/styles/mdx.css"
@@ -51,19 +51,7 @@ const page = async ({params}: PostPageProps) => {
         <>
             <section className="mdx__wrapper px-5">
                 <div className='mdx__inner flex flex-col gap-2 pt-[50px] pb-5 max-w-[1200px] w-full mx-auto my-0'>
-                    <div className="layout__hat w-full h-10 bg-green-100 rounded-t-md flex items-center px-2">
-                        <ul className="flex gap-5">
-                            <li className="relative before:absolute before:w-1.5 before:h-1.5 before:border-t-black before:border-r-black before:border-t-2 before:border-r-2 before:right-[-10px] before:top-2/4 before:rotate-45 before:translate-y-[-35%]">
-                                <Link href="/" className="font-extrabold text-sm">Home</Link>
-                            </li>
-                            <li className="relative before:absolute before:w-1.5 before:h-1.5 before:border-t-black before:border-r-black before:border-t-2 before:border-r-2 before:right-[-10px] before:top-2/4 before:rotate-45 before:translate-y-[-35%]">
-                                <Link href="/" className="font-extrabold text-sm">Post</Link>
-                            </li>
-                            <li>
-                                <Link href="/" className="font-extrabold text-sm">제너릭(Generic)</Link>
-                            </li>
-                        </ul>
-                    </div>
+                    <PostHat post={post}/>
                     <div className="layout__body flex gap-2">
                         <aside className="shrink-0 basis-[280px] w-[280px] relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-[30px] before:rounded-tr-md before:border-t before:border-r before:border-solid before:border-gray-300 before:dark:border-white">
                             <div className="aside__inner h-[calc(100vh-80px)] overflow-y-auto overflow-x-visible sticky top-[80px]">
