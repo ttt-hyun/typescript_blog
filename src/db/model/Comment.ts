@@ -10,12 +10,15 @@ export interface IComment extends Document {
 }
 
 export interface ICommentProp {
+    _id: string;
     postId: string;
     content: string;
     author: {
         name: string;
         password: string;
-    }
+    };
+    createdAt: string;
+    updatedAt: string;
 }
 
 const commentSchema: Schema = new mongoose.Schema({

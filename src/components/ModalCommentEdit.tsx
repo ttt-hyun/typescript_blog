@@ -2,74 +2,88 @@
 
 import React, { useEffect, useState } from "react";
 import ReactPortal from "@/components/ReactPortal";
+import { ICommentProp } from "@/db/model/Comment";
 import Link from "next/link";
 
-import { postsForSearch } from '#site/content';
+// useForm 
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-type ResultPostProps = Array<{title: string, slug: string}> | null;
+const commentSchema = z.object({
+    _id: z.string().min(1).max(100),
+    password: z.string().min(8).max(20),
+    origin_password: z.string().min(8).max(20),
+    comment: z.string().min(1).max(100),
+}).superRefine(({password, origin_password}, ctx) => {
+    if(password !== origin_password){
+        ctx.addIssue({
+            code: "custom",
+            message: "Passwords do not match",
+            path: ["password"]
+        })
+    }
+});
 
-const getPosts = (keyword: string):ResultPostProps => {
-    if(!keyword) return null;
-    return postsForSearch?.filter(res => (res.title.toLowerCase().includes(keyword) || res.title.includes(keyword))).map(res => (
-        {
-            'title' : res.title,
-            'slug' : res.slug
-        }
-    ));
-}
+type TCommentSchema = z.infer<typeof commentSchema>;
+
+
 
 interface ModalDefaultProps {
-    children?: React.ReactElement;
+    children?: React.ReactElement; 
     isOpen: boolean;
+    commentData: ICommentProp | null | undefined;
     handleClose: () => void;
 }
 
 
-const ModalMenu = ({ children, isOpen, handleClose }: ModalDefaultProps) => {
+const ModalMenu = ({ children, isOpen, commentData, handleClose }: ModalDefaultProps) => {
     
-    const [searchResultArray, setSearchResultArray] = useState<ResultPostProps>(null);
-
-    useEffect(() => {
-        const closeOnEscapeKey = (e: KeyboardEvent) =>
-            e.key === "Escape" ? handleClose() : null;
-
-        document.body.addEventListener("keydown", closeOnEscapeKey);
-        return (): void => {
-            document.body.removeEventListener("keydown", closeOnEscapeKey);
-        };
-    }, [handleClose]);
-
-    useEffect(() => {
-        // document.body.style.overflow = "hidden";
-        // return (): void => {
-        //     document.body.style.overflow = "unset";
-        // };
-    }, [isOpen]);
-
-    
-
-    if (!isOpen) return null;
+    if(!commentData) return null;
 
     const closeModal = (e: React.MouseEvent<HTMLElement>): void => {
         const target = e.target as HTMLElement;
         target.dataset.close && handleClose();
     };
 
-    const keyWordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const keyword = e.target.value;
-        const searchResult = getPosts(keyword);
-        
-        if (searchResult !== null) {
-            setSearchResultArray(searchResult);
-        } else {
-            setSearchResultArray(null);
+    // UseForm 기능 옵션
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        reset,
+        getValues,
+    } = useForm<TCommentSchema>({
+        resolver: zodResolver(commentSchema)
+    });
+
+    // UseForm 기능 옵션
+    const onSubmit = async (data: TCommentSchema) => {
+        const body = {
+            content: data.comment,
         }
+        await fetch(`/api/comment`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        }).then(res => res.json())
+        .then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+
+        // if(!result.ok){
+        //     throw new Error('오류 발생');
+        // }
+
+        reset();
     }
 
-
-
     return (
-        <ReactPortal wrapperId="react-portal-modalsearch">
+        <ReactPortal wrapperId="react-portal-modalcommentedit">
             <>
                 <div
                     onClick={closeModal}
@@ -80,85 +94,57 @@ const ModalMenu = ({ children, isOpen, handleClose }: ModalDefaultProps) => {
                         onClick={closeModal}
                         data-close="true"
                         className="w-full max-w-[700px] max-h-full h-[600px]">
-                        <div className="max-w-[700px] max-h-full overflow-y-auto bg-white dark:bg-default shadow-primary rounded-md py-5">
-                            <div className="search__header px-5">
+                        <form
+                            onSubmit={handleSubmit(onSubmit)}
+                            className="flex flex-col gap-3 max-w-[700px] max-h-full overflow-y-auto bg-white dark:bg-default shadow-primary rounded-md pt-5">
+                            <input {...register("_id")} type="hidden" name="_id" value={commentData._id} />
+                            <input {...register("origin_password")} type="hidden" name="origin_password" value={commentData.author.password} />
+                            <div className="modal__head px-5">
                                 <div className="search__type flex gap-2">
                                     <p className="px-2 border border-solid border-gray-300 rounded-md font-bold text-sm">
-                                        Posts
+                                        Comment
+                                    </p>
+                                    <p className="px-2 border border-solid border-gray-300 rounded-md font-bold text-sm">
+                                        Edit
                                     </p>
                                 </div>
-                                <div className="search__keyword pt-1">
-                                    <input
-                                        type="text"
-                                        className="w-full h-[42px] placeholder:text-md bg-transparent"
-                                        placeholder="Search documentation..."
-                                        onChange={keyWordChange}
-                                    />
-                                </div>
                             </div>
-                            <div className="search__body border-t p-5">
-                                <ul className="flex flex-col gap-2">
-                                    { 
-                                        searchResultArray !== null && searchResultArray?.length !== 0 ? 
-                                        (
-                                            <>
-                                            {/* <li>
-                                                <p>{JSON.stringify(searchResultArray)}</p>
-                                            </li> */}
-                                            {
-                                                searchResultArray.map(res => {
-                                                    return (
-                                                        <li key={res.title}>
-                                                            <Link
-                                                                href={`/`+res.slug}
-                                                                className="group flex justify-between items-center py-4 px-3 rounded-md border bg-blue-50 hover:bg-blue-200 dark:bg-blue-700 dark:hover:bg-blue-800"
-                                                            >
-                                                                <p className="text-md font-bold">
-                                                                    {res.title}
-                                                                </p>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                                                                    <g data-name="Circle kanan">
-                                                                        <circle cx="12" cy="12" r="10" className="fill-none"/>
-                                                                        <path d="M11 16a1 1 0 0 1-.707-1.707L12.586 12l-2.293-2.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414l-3 3A1 1 0 0 1 11 16z" className="dark:fill-white"/>
-                                                                    </g>
-                                                                </svg>
-                                                            </Link>
-                                                        </li>
-                                                    )
-                                                })
-                                            }
-                                            </>
-                                        ) : searchResultArray == null ? 
-                                        (
-                                            <li>
-                                                <p className="font-bold">검색어를 입력해주세요.</p>
-                                            </li>
-                                        ) : 
-                                        (
-                                            <li>
-                                                <p className="font-bold">검색 결과가 없습니다.</p>
-                                            </li>
-                                        )
-                                    }
-                                    {/* <li>
-                                        <Link
-                                            href="/post"
-                                            className="group flex justify-between items-center py-4 px-3 rounded-md border bg-blue-50 hover:bg-blue-200"
-                                        >
-                                            <p className="text-md font-bold">
-                                                [TypeScript] Generic이란?
-                                            </p>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                                                <g data-name="Circle kanan">
-                                                    <circle cx="12" cy="12" r="10" className="fill-none"/>
-                                                    <path d="M11 16a1 1 0 0 1-.707-1.707L12.586 12l-2.293-2.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414l-3 3A1 1 0 0 1 11 16z" className=""/>
-                                                </g>
-                                            </svg>
-                                        </Link>
-                                    </li> */}
+                            <div className="modal__content border-t px-5">
+                                <ul className="flex flex-col gap-4 py-5">
+                                    <li className="flex flex-col gap-2">
+                                        <p className="font-bold text-md">댓글 수정하기</p>
+                                        <textarea {...register("comment")} name="comment" className="w-full px-4 py-3 resize-none border rounded-md placeholder:text-sm" placeholder="">{commentData.content}</textarea>
+                                    </li>
+                                    <li className="flex flex-col gap-2">
+                                        <p className="font-bold text-md">비밀번호</p>
+                                        <input {...register("password")} type="password" name="password" className="border rounded-md px-4 h-10 placeholder:text-sm" placeholder="Enter your password" />
+                                    </li>
                                 </ul>
                             </div>
-                        </div>
+                            <div className="error__list flex flex-col gap-1 mt-5" >
+                                {errors.comment && (
+                                    <p className="flex items-center h-10 rounded-md bg-red-100 px-5">
+                                        <span>{`comment : ${errors.comment.message}`}</span>
+                                    </p>
+                                )}
+                                {errors._id && (
+                                    <p className="flex items-center h-10 rounded-md bg-red-100 px-5">
+                                        <span>{`id : ${errors._id.message}`}</span>
+                                    </p>
+                                )}
+                                {errors.password && (
+                                    <p className="flex items-center h-10 rounded-md bg-red-100 px-5">
+                                        <span>{`password : ${errors.password.message}`}</span>
+                                    </p>
+                                )}
+                            </div>
+                            <div className="modal__button">
+                                <div className="flex justify-end">
+                                    <button type="submit" className="w-full bg-green-400 hover:bg-green-500 transition-all rounded-bl-md h-10 font-extrabold text-sm">수정</button>
+                                    <button className="w-full bg-red-400 hover:bg-red-500 transition-all rounded-br-md h-10 font-extrabold text-sm" disabled>삭제</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </>

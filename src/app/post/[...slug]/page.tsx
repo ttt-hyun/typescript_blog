@@ -53,13 +53,13 @@ const page = async ({params}: PostPageProps) => {
                 <div className='mdx__inner flex flex-col gap-2 pt-[50px] pb-5 max-w-[1200px] w-full mx-auto my-0'>
                     <PostHat post={post}/>
                     <div className="layout__body flex gap-2">
-                        <aside className="shrink-0 basis-[280px] w-[280px] relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-[30px] before:rounded-tr-md before:border-t before:border-r before:border-solid before:border-gray-300 before:dark:border-white">
+                        <aside className="shrink-0 basis-[280px] w-[280px] relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-[30px] before:rounded-tr-md before:border-t before:border-r before:border-solid before:border-gray-200 before:dark:border-white">
                             <div className="aside__inner h-[calc(100vh-80px)] overflow-y-auto overflow-x-visible sticky top-[80px]">
                                 <AsideUtil />
                             </div>
                         </aside>
                         <div className="mdx__contents w-full overflow-hidden flex-1 prose dark:prose-invert max-w-3xl">
-                            <div className="mdx__thumbnail rounded-md overflow-hidden border border-gray-400">
+                            <div className="mdx__thumbnail rounded-md overflow-hidden border border-gray-200">
                                 <Image src="/thumb_next_1.svg" alt="" width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }} />
                             </div>
                             {
@@ -119,7 +119,7 @@ const page = async ({params}: PostPageProps) => {
                                 
                             </div>
                         </div>
-                        <aside className="shrink-0 w-[280px] relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-[30px] before:rounded-tl-md before:border-t before:border-l before:border-solid before:border-gray-300 before:dark:border-white">
+                        <aside className="shrink-0 w-[280px] relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-[30px] before:rounded-tl-md before:border-t before:border-l before:border-solid before:border-gray-200 before:dark:border-white">
                             <div className="flex flex-col aside__inner h-[calc(100vh-80px)] sticky top-[80px]">
                                 <AsideHeading code={post.body} />
                             </div>
